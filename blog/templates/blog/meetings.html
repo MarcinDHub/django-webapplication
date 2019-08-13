@@ -1,0 +1,38 @@
+{% extends "blog/base.html" %}
+{% block content %}
+	<div class="user-meetings">
+	{% if meetings_all %}
+	<table class="table table-hover table-striped table-bordered table-sm blur">
+  		<thead class="thead-dark">
+    		<tr>
+			  <th scope="col">#</th>
+		      <th scope="col">Data</th>
+		      <th scope="col">Firma</th>
+		      <th scope="col">Miasto</th>
+		      <th scope="col">Lider</th>
+		      <th scope="col">Handlowiec</th>
+			</tr>
+  		</thead>
+		<tbody>
+  			{% for meeting in meetings_all %}
+  			{% if meeting.done == True %}
+  			<tr class="table-success">
+  			{% else %}
+  			<tr>
+  			{% endif %}
+  				<th scope="col">{{ meeting.index }}</th>
+				<td scope="col">{{ meeting.date|date:"d E Y" }}</td>
+				<td scope="col">{{ meeting.company }}</td>
+				<td scope="col">{{ meeting.city }}</td>
+				<td scope="col"><strong>{{ meeting.leader }}</strong></td>
+				<td scope="col">{{ meeting.trader_1 }}</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	{% else %}
+		<h1>Brak spotkań</h1>
+	{% endif %}
+	</div>
+{% endblock content %}
+

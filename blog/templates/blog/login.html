@@ -1,0 +1,29 @@
+{% extends "blog/base.html" %}
+{% block login_content %}
+  <main role="main" class="container">
+    <div class="row">
+      <div class="col-md-8">
+      	<h1>Zaloguj się</h1>
+      	<form method="POST">
+          {% csrf_token %}
+        		<div class="form-group">
+          		<label for="username">Adres e-mail</label>
+              <input type="text" name="username" class="form-control" id="username" placeholder="Podaj login">
+          		<!--small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small-->
+        		</div>
+        		<div class="form-group">
+          		<label for="password">Hasło</label>
+          		<input type="password" name="password" class="form-control" id="password" placeholder="Wpisz hasło">
+        		</div>
+        		<div class="form-check">
+          		<input type="checkbox" class="form-check-input" id="exampleCheck1">
+          		<label class="form-check-label" for="exampleCheck1">Check me out</label>
+        		</div>
+        		<button type="submit" class="btn btn-primary btn-block">Zaloguj</button>
+      	</form>
+              </div>
+      <div class="col-md-4">
+      </div>
+    </div>
+  </main>
+{% endblock login_content %}

@@ -1,0 +1,114 @@
+{% extends "blog/base.html" %}
+{% block content %}
+<div class="mystats" id="mystats1">
+	
+	<span style="font-size:18px;font-weight: bold;display:flex;justify-content:center;padding-top:10px">PLAN SPOTKAŃ (miesięczny)</span>
+	<i class="icon-users icon-mystats text{{ mm_color }}"></i>
+	<button type="button" id="123" class="btn btn-primary mystats-button" data-toggle="modal" data-target="#meetingForm">+</button>
+	{% include "blog/forms/add_meeting.html" %}
+		<div class="progress margin-progressbar">
+	  		<div class="progress-bar progress-bar-striped bg{{ mm_color }}" role="progressbar" style="width: {{ mm_pct }}% " aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+	  		</div>
+		</div>
+		<div class="progressbar-text blur">Wykonano: {{mm_done_len}}/{{mm_norm}}
+		</div>
+</div>
+<div class="mystats" id="mystats2">
+	<span style="font-size:18px;font-weight: bold;display:flex;justify-content:center;padding-top:10px">PLAN TELEFONÓW (miesięczny)</span>
+	<i class="icon-phone icon-mystats text{{ pcm_color }}"></i>
+	<button type="button" id="1234" class="btn btn-primary mystats-button" data-toggle="modal" data-target="#phonecallForm">+</button>
+	{% include "blog/forms/add_phonecall.html" %}
+	<div class="progress margin-progressbar">
+  		<div class="progress-bar progress-bar-striped bg{{ pcm_color }}" role="progressbar" style="width: {{ pcm_pct }}%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+  		</div>
+	</div>
+	<div class="progressbar-text blur">Wykonano: {{pcm_done_len}}/{{pcm_norm}}
+	</div>
+</div>
+<div class="mystats" id="mystats2">
+	<span style="font-size:18px;font-weight: bold;display:flex;justify-content:center;padding-top:10px">PLAN TELEFONÓW (tygodniowy)</span>
+	<i class="icon-phone icon-mystats text{{ pcw_color }}"></i>
+	<a class="btn btn-secondary mystats-button" href="{% url 'add-phonecall' %}" title="Dodaj połączenie telefoniczne">+</a>
+	<div>
+		<div class="progress margin-progressbar">
+	  		<div class="progress-bar progress-bar-striped bg{{ pcw_color }}" role="progressbar" style="width: {{ pcw_pct }}%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+	  		</div>
+		</div>
+		<div class="progressbar-text blur">Wykonano: {{pcw_done_len}}/{{pcw_norm}}
+		</div>
+	</div>
+</div>
+
+<div class="table-small-container blur table-link">
+	<div class="small-table-header">Zaplanowanie spotkania:</div>
+	<table class="table table-sm table-striped">
+ 		 <thead>
+		    <tr>
+		      <th scope="col" >Data</th>
+		      <th scope="col">Klient</th>
+		      <th scope="col">Miejscowość</th>
+		      <th scope="col">Lider</th>
+		      <th scope="col">Handlowiec</th>
+		      <th scope="col">Akcja</th>
+		    </tr>
+  		</thead>
+  		<tbody>
+    		{% for item in m_planned %}
+    		<tr>
+			      <th scope="row"> {{ item.date }}</th>
+			      <td scope="row"><a href="{% url 'blog-client' %}{{item.company.id}}" class="no-dec">{{ item.company }}</a></td>
+			      <td scope="row"> {{ item.city }}</td> 
+			      <td scope="row"> {{ item.leader }}</td> 
+			      <td scope="row"> {{ item.trader_1 }}</td>
+			      <td><a class="mystats-table-button btn-primary" href="{{ item.id }}" style="height: 25px;font-size: 12px">Przełóż</a>
+			      <a class="mystats-table-button btn-danger" href="{{ item.id }}" style="height: 25px;font-size: 12px">Odwołaj</a></td>
+			</tr>  
+			{% endfor %}
+		</tbody>
+    </table>
+</div>
+<div class="table-small-container blur">
+	<div class="small-table-header">Do potwierdzenia:</div>
+	<table class="table table-sm table-striped table-small">
+ 		 <thead>
+		    <tr>
+		      <th scope="col">Data</th>
+		      <th scope="col">Klient</th>
+		      <th scope="col">Miejscowość</th>
+		      <th scope="col">Lider</th>
+		      <th scope="col">Handlowiec</th>
+		      <th scope="col"></th>
+		    </tr>
+  		</thead>
+  		<tbody>
+    		{% for item in m_to_acc %}
+    		<tr style="margin-top:10px;">
+			      <th scope="row"> {{ item.date }}</th>
+			      <td scope="row"><a href="{% url 'blog-client' %}{{item.company.id}}" class="no-dec">{{ item.company }}</a></td>
+			      <td scope="row"> {{ item.city }}</td> 
+			      <td scope="row"> {{ item.leader }}</td> 
+			      <td scope="row"> {{ item.trader_1 }}</td> 
+			      <td>
+			      	<form method="GET" action="/spotkania-edit/">
+			      		<button name="d" class="mystats-table-button btn-success" value="{{ item.id }}" >Wykonano</button>
+		      			<button name="p" class="mystats-table-button btn-primary" value="{{ item.id }}" >Przełóż</button>		
+		      			<button name="c" class="mystats-table-button btn-danger" value="{{ item.id }}" >Odwołaj</button>
+
+			      	</form>
+			</tr>  
+			{% endfor %}
+		</tbody>
+    </table>
+<script type="text/javascript">
+$("#m_date").datetimepicker({
+	format: 'yyyy-mm-dd hh:ii',
+	autoclose: true
+});
+</script>
+<script type="text/javascript">
+$("#pc_date").datetimepicker({
+	format: 'yyyy-mm-dd hh:ii',
+	autoclose: true
+});
+</script>
+{% endblock content %}

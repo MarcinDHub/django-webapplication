@@ -1,0 +1,102 @@
+{% extends "blog/base.html" %}
+{% block content %}
+
+
+<div class="calendar-container blur">
+	<table class="table table-bordered table-sm blur shdw" style="border: red 1px solid;">
+  		<thead class="thead-dark"  style="border: red 1px solid;">
+    		<tr  style="border: red 1px solid;">
+			  <th scope="col">Poniedziałek</th>
+		      <th scope="col">Wtorek</th>
+		      <th scope="col">Środa</th>
+		      <th scope="col">Czwartek</th>
+		      <th scope="col">Piątek</th>
+		      <th scope="col">Sobota</th>
+		      <th scope="col">Niedziela</th>
+			</tr>
+  		</thead>
+		<tbody>
+  			<tr>
+  				{% for event in records_first_week %}
+  				<td scope="col" class="calendar-date 
+  				{% if event.dd.day ==  today.day %} cal-curr-date
+  				{% elif event.dd.day <  today.day %} cal-past-date{%endif%}
+  				">
+  				{{ event.dd |date:"d b" }}
+  				</td>
+  				{% endfor %}
+			</tr>
+			<tr>
+
+  				{% for event in records_first_week %}
+	  				<td scope="col" class="cal-content 
+	  				{% if event.dd.day ==  today.day %} cal-curr-date
+	  				{% elif event.dd.day <  today.day %} cal-past-date
+	  				{%endif%}">
+	  				{% for i in event %}
+		  			<div style="background-color: #F5D547; margin-top: 15px; border-radius:10px 10px 0px 0px; border: solid 1px black;">
+		  				<div class="cal-date-small shdw">
+		  				{{i.date | date:"H:i"}}
+		  				</div>
+		  				<div style="font-weight:bold;">
+		  					<a href="{% url 'blog-client' %}{{i.company.id}}" class="no-dec" style="display:block;">{{ i.company }}</a>
+		  				</div>
+		  				<div style="font-style:italic;">
+		  					{{ i.city }}<br/>
+		  				</div>
+		  				<form method="GET" action="/spotkania-done/">
+		  					<!--input href="/test" type="button" name="done" class="btn-success cal-button" value="E"--> 
+		  					<button name="d" class="btn-danger cal-button" value="{{ i.company.id }}">U</button>
+		  				</form>
+		  				<br/>
+		  			</div>
+	  				{% endfor %}
+	  				</td>
+  				{% endfor %}
+			</tr>
+		</tbody>
+	</table>
+	<table class="table table-bordered table-sm blur shdw">
+		<thead class="thead-dark">
+    		<tr>
+			  <th scope="col">Poniedziałek</th>
+		      <th scope="col">Wtorek</th>
+		      <th scope="col">Środa</th>
+		      <th scope="col">Czwartek</th>
+		      <th scope="col">Piątek</th>
+		      <th scope="col">Sobota</th>
+		      <th scope="col">Niedziela</th>
+			</tr>
+  		</thead>
+		<tbody>
+  			<tr>
+  				{% for date in second_week %}<td scope="col" class="calendar-date">{{ date |date:"d b" }}</td>{% endfor %}
+			</tr>
+			<tr>
+  				{% for event in records_second_week %}
+  				<td scope="col" class="cal-content">
+  				{% for i in event %}
+  				<div style="background-color: #F5D547; margin-top: 15px; border-radius:10px 10px 0px 0px; border: solid 1px black;"> 
+  					<div class="cal-date-small shdw">
+  					{{i.date | date:"H:i"}}
+  					</div>
+  					<div style="font-weight:bold;">
+		  					<a href="{% url 'blog-client' %}{{i.company.id}}" class="no-dec" style="display:block;">{{ i.company }}</a>
+		  			</div>
+
+		  			<div style="font-style:italic;">
+		  					{{ i.city }}<br/>
+		  			</div>
+		  			<button class="btn-success cal-button">E</button><button class="btn-danger cal-button">U</button>
+		  			<br/>
+		  		</div>
+
+  			{% endfor %}</td>{% endfor %}
+			</tr>
+		</tbody>
+	</table>
+</div>
+</div>
+
+</div>
+{% endblock content %}

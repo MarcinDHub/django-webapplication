@@ -1,0 +1,70 @@
+{% extends "blog/base.html" %}
+{% block content %}
+<div style="margin:20px;"
+  <form class="was-validated">
+  <h1>Dodaj spotkanie:</h1>
+
+      <div class="form-group">
+      <select class="custom-select" required>
+        <option value="">Wybierz partnera</option>
+        {% for employee in employee %}
+        <option value="{{employee.id}}">{{ employee }}</option>
+        {% endfor %}
+      </select>
+      <div class="invalid-feedback">Nie wybrałeś partnera!</div>
+    </div>
+
+    <div class="form-group">
+      <select class="custom-select" required>
+        <option value="">Wybierz miasto</option>
+        {% for city in cities %}
+        <option value="{{city.id}}">{{ city.name }}</option>
+        {% endfor %}
+      </select>
+      <div class="invalid-feedback">Nie wybrałeś miejsca spotkania!</div>
+    </div>
+
+
+  </form>
+
+  	<label for="journeyGroup"> Dojazd:</label>
+  	<div class="input-group mb-3" id="journeyGroup">
+    		<div class="input-group-prepend">
+      		<span class="input-group-text" id="basic-addon1">Dystans</span>
+    		</div>
+    		<input type="number" class="form-control" aria-label="Username" aria-describedby="basic-addon1" placeholder="[km]">
+  	</div>
+  	<div class="input-group mb-3" id="journeyGroup">
+    		<div class="input-group-prepend">
+      		<span class="input-group-text" id="basic-addon1">Czas </span>
+    		</div>
+    		<input type="number" class="form-control" aria-label="Username" aria-describedby="basic-addon1" placeholder="[h]">
+  	</div>
+
+  	<label for="meetingGroup"> Spotkanie:</label>
+  	<div class="input-group mb-3" id=""meetingGroup">
+    		<div class="input-group-prepend">
+      		<span class="input-group-text" id="basic-addon1">Czas trwania</span>
+    		</div>
+    		<input type="number" class="form-control" aria-label="Username" aria-describedby="basic-addon1" placeholder="[h]">
+  	</div>
+
+
+
+  	<label  for="sleepInput">Nocleg:</label>
+  	<div class="input-group mb-3" id="sleepInput">
+  	  <div class="input-group-prepend">
+  	    <div class="input-group-text">
+  	      <input type="checkbox" aria-label="Checkbox for following text input">
+  	    </div>
+  	  </div>
+  		<select class="custom-select">
+        		<option value="">Wybierz miasto</option>
+        			{% for city in cities %}
+        		<option value="{{city.id}}">{{ city.name }}</option>
+        	{% endfor %}
+      	</select>
+  	</div>
+  	<button type="submit" class="btn btn-primary btn-block">Zatwierdź</button>
+</div>
+{% endblock content %}

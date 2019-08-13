@@ -1,0 +1,21 @@
+{% load static %}
+{% block sidebar %}
+ <div class="col-md-4 sidebar blur-w">
+
+    	<div class="sidebar-username">
+    		<img src="{% static 'img/markru_full.png' %}" alt="Photo" class="sidebar-username-photo"> <br>
+    		{{ user }}
+    	</div>
+    	<div class="sidebar-header">
+    		Menu główne
+    	</div>
+			<ul class="sidebar-list">
+				<li><a href="{% url 'blog-desktop' %}" class="sidebar-link"><img src="{% static 'img/user.png' %}" width="30" height="30"> Pulpit</a></li>
+				<li><a href="{% url 'blog-scheduler' %}" class="sidebar-link"><img src="{% static 'img/team.png' %}" width="30" height="30"> Dzienniczek</a></li>
+				<li><a href="{% url 'blog-meetings' %}" class="sidebar-link"><img src="{% static 'img/team.png' %}" width="30" height="30"> Spotkania</a></li>
+				<li><a href="{% url 'blog-phonecalls' %}" class="sidebar-link"> <img src="{% static 'img/smartphone.png' %}" width="30" height="30"> Połączenia</a></li>
+				<li><a href="{% url 'blog-client' %}" class="sidebar-link"> <img src="{% static 'img/company.png' %}" width="30" height="30"> Klienci</a></li>
+				<li><a href="{% url 'blog-calendar' %}" class="sidebar-link"> <img src="{% static 'img/company.png' %}" width="30" height="30"> Kalendarz</a></li>
+			</ul>
+</div>
+{% endblock sidebar %}

@@ -1,0 +1,27 @@
+{% extends "blog/base.html" %}
+{% block content %}
+	<div class="search-container">
+		
+		<div class="blur">
+			<div><h3>Wyniki wyszukiwania dla zapytania: "{{ query }}"</h1></div>
+			<h4>Klienci</h4>
+
+			{% for item in results_company%}
+				<li><a href="{% url 'blog-client' %}{{item.id}}">{{ item.name }}</a></li>
+			{% endfor %}
+			</ul>
+			<h4>Osoby</h4>
+			<ul>
+			{% for item in results_person%}
+				<li>{{ item }}</li>
+			{% endfor %}
+			</ul>
+			<h4>Opisy</h4>
+			<ul>
+			{% for item in results%}
+				<li><a href="{% url 'blog-client' %}{{item.id}}">{{ item.name }}</a></li>
+			{% endfor %}
+			</ul>
+		</div>
+	</div>
+{% endblock content %}

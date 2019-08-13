@@ -1,0 +1,66 @@
+{% extends "blog/base.html" %}
+{% block content %}
+
+<div class="mystats" id="mystats1">
+	<button type="button" id="13323" class="btn btn-primary mystats-button" data-toggle="modal" data-target="#activityForm">+</button>
+	{% include "blog/forms/add_activity.html" %}
+
+</div>
+
+
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names..">
+<div class="table-small-container blur table-link">
+	<div class="small-table-header">Dzienniczek:</div>
+	<table id="myTable" class="table table-sm table-striped">
+ 		 <thead>
+		    <tr>
+		      <th scope="col">Data</th>
+		      <th scope="col">Typ</th>
+		      <th scope="col">Firma</th>
+		      <th scope="col">Opis</th>
+		      <th scope="col">E-Mail</th>
+		    </tr>
+  		</thead>
+  		<tbody>
+    		{% for item in data %}
+    		<tr>
+			      <th scope="row"> {{ item.date }}</th>
+			      <td scope="row"> {{ item.typeof }}</td> 
+			      <td scope="row"><a href="{% url 'blog-client' %}{{item.company.id}}" class="no-dec">{{ item.company }}</a></td>
+			      <td scope="row"> {{ item.description }}</td> 
+			      <td scope="row"> {{ item.company.email }}</td> 
+			</tr>  
+			{% endfor %}
+		</tbody>
+    </table>
+</div>
+<script type="text/javascript">
+$("#a_date").datetimepicker({
+	format: 'yyyy-mm-dd hh:ii',
+	autoclose: true
+});
+</script>
+<script>
+function myFunction() {
+  // Declare variables 
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    } 
+  }
+}
+</script>
+{% endblock content %}

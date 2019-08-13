@@ -1,0 +1,33 @@
+{% extends "blog/base.html" %}
+{% load humanize %}
+{% block content %}
+	<div class="user-meetings">
+	{% if phonecalls_all %}
+	<table class="table table-hover table-striped table-bordered table-sm blur">
+  		<thead class="thead-dark">
+    		<tr>
+			  <th scope="col">#</th>
+		      <th scope="col">Data</th>
+		      <th scope="col">Firma</th>
+		      <th scope="col">Miasto</th>
+		      <th scope="col">Opis</th>
+			</tr>
+  		</thead>
+		<tbody>
+  			{% for item in phonecalls_all %}
+  			<tr class="{% if item.done == True %} table-success{% endif %}">
+  				<th scope="col">{{ item.index }}</th>
+				<td scope="col">{{ item.date|naturalday:"d F Y" }}</td>
+				<td scope="col">{{ item.company }}</td>
+				<td scope="col">{{ item.company.city }}</td>
+				<td scope="col">{{ item.description }}</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	{% else %}
+		<h1>Brak połączeń</h1>
+	{% endif %}
+	</div>
+{% endblock content %}
+

@@ -1,0 +1,52 @@
+{% extends "blog/base.html" %}
+{% block content %}
+	<div class="table-small-container">
+		<h2> {{ name }} </h2>
+	</div>
+
+	<div class="table-small-container blur">
+		<strong>Połączenia telefoniczne</strong>
+		<table class="table table-sm table-striped">
+ 		 <thead>
+		    <tr>
+		      <th scope="col" style="min-width: 200px;">Data</th>
+		      <th scope="col">Handlowiec</th>
+		      <th scope="col">Opis rozmowy</th>
+		    </tr>
+  		</thead>
+  		<tbody>
+  			{% for item in phonecalls %}
+    		<tr>
+			      <td scope="row c"> {{ item.date }}</th>
+			      <td scope="row c"> {{ item.employee }}</td>
+			      <td scope="row c"> {{ item.description }}</td>
+			</tr>  
+			{% endfor %}
+  		</tbody>
+  	</table>
+	</div>
+	<div class="table-small-container blur">
+		<strong>Spotkania</strong>
+		<table class="table table-sm table-striped">
+ 		 <thead>
+		    <tr>
+		      <th scope="col" style="min-width: 200px;">Data</th>
+		      <th scope="col">Lider</th>
+		      <th scope="col">Handlowiec 1</th>
+		    </tr>
+  		</thead>
+  		<tbody>
+  			{% for item in meetings %}
+    		<tr>
+			      <td scope="row c"> {{ item.date }}</th>
+			      <td scope="row c"> {{ item.leader }}</td>
+			      <td scope="row c"> {{ item.trader_1 }}</td>
+			</tr>  
+			{% endfor %}
+  		</tbody>
+  	</table>
+	</div>
+
+
+
+{% endblock content %}
